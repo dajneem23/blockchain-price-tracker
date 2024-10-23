@@ -8,18 +8,18 @@ import { ConfigService } from './config.service';
 
 @Injectable()
 export class MoralisService {
-    core: Core;
-    commonEvmUtils: CommonEvmUtils;
-    apiUtils: ApiUtils;
-    evmApi: MoralisEvmApi;
-    constructor(private readonly _configService: ConfigService) {
+    core!: Core;
+    commonEvmUtils!: CommonEvmUtils;
+    apiUtils!: ApiUtils;
+    evmApi!: MoralisEvmApi;
+    constructor(private readonly _configService: ConfigService) {}
+
+    async init() {
         this.core = Core.create();
-        console.log('moralis started', this._configService);
-        this.core
+        console.log('moralis started', this._configService.moralisConfig);
+        await this.core
             .start({
                 apiKey: this._configService.moralisConfig.apiKey,
-                evmApiBaseUrl: this._configService.moralisConfig.apiUrl,
-                // ...and any other configuration
             })
             .then(() => {
                 console.log('moralis started');

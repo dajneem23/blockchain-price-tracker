@@ -2,7 +2,7 @@ import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication, ExpressAdapter } from '@nestjs/platform-express';
 import rateLimit from 'express-rate-limit';
-import * as helmet from 'helmet'; // security feature
+import helmet from 'helmet'; // security feature
 import morgan from 'morgan'; // HTTP request logger
 
 import { AppModule } from './app.module';

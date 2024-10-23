@@ -14,6 +14,11 @@ export const ETHERSCAN_HOST = NETWORK === MAINNET ? 'https://etherscan.io' : 'ht
 
 export const ETHEREUM_CONTRACT_ADDRESS = process.env.ETHEREUM_CONTRACT_ADDRESS;
 
+export const WETH_CONTRACT_ADDRESS =
+    NETWORK === MAINNET ? '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' : '0x0a180a76e4466bf68a7f86fb029bed3cccfaaac5';
+
+export const NATIVE_COIN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+
 export const POLYGON_CHAIN_ID = NETWORK === MAINNET ? 137 : 80001;
 
 export const POLYGON_API_URL = process.env.POLYGON_API_URL;

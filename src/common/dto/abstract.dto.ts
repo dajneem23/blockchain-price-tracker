@@ -8,8 +8,8 @@ export class AbstractDto {
     id!: string;
 
     @Expose()
-    createdAt: Date;
+    createdAt: Date | undefined;
 
     @Expose()
-    updatedAt: Date;
+    updatedAt: Date | undefined;
 }

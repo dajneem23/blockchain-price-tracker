@@ -1,5 +1,6 @@
 import './boilerplate.polyfill';
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventStoreCqrsModule } from 'nestjs-eventstore';
@@ -13,6 +14,7 @@ import { SharedModule } from './shared.module';
 @Module({
     imports: [
         TerminusModule,
+        ScheduleModule.forRoot(),
         TypeOrmModule.forRootAsync({
             imports: [SharedModule],
             useFactory: (configService: ConfigService) => configService.typeOrmConfig,

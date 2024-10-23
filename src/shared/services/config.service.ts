@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import * as dotenv from 'dotenv';
-import * as winston from 'winston';
+import dotenv from 'dotenv';
+import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
 import {
