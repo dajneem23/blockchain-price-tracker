@@ -19,9 +19,9 @@
         "resolveJsonModule": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@/*": ["src/*"],
+            "@/*": ["src/*"]
         }
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "src/modules/chains/services/price.service.spec.ts"],
     "exclude": ["node_modules", "dist"]
 }
