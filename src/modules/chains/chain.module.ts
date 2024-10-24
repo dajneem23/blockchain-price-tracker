@@ -2,17 +2,20 @@ import { ApolloFederationDriverConfig, ApolloFederationDriver } from '@nestjs/ap
 import { Module } from '@nestjs/common';
 import { ChainsController } from './controllers/chains.controller';
 import { CommandHandlers } from './commands/handlers';
-import { QueryHandlers } from './queries/handlers/inde';
+import { QueryHandlers } from './queries/handlers';
 import { ChainsService } from './services/chains.service';
-import { EthereumService } from './services/eth.service';
-import { EthereumController } from './controllers/eth.controller';
-import { TokenPriceRepository } from './repository/token-price.repository';
+import { TokenPriceRepository } from './repositories/token-price.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventHandlers } from './events/handlers';
+import { PriceService } from './services/price.service';
+import { CqrsModule } from '@nestjs/cqrs';
+import { TokenPriceModel } from './models/chain.model';
+import { ModelsModule } from '@/models.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([TokenPriceRepository])],
-    controllers: [ChainsController, EthereumController],
-    providers: [ChainsService, EthereumService, ...CommandHandlers, ...QueryHandlers, ...EventHandlers],
+    imports: [CqrsModule, ModelsModule],
+    controllers: [ChainsController],
+    providers: [ChainsService, PriceService, ...CommandHandlers, ...QueryHandlers, ...EventHandlers],
+    exports: [ChainsService, PriceService],
 })
-export class UsersModule {}
+export class ChainModule {}

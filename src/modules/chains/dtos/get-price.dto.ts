@@ -5,10 +5,10 @@ import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 @JoiSchemaOptions(JOI_DEFAULT_VALIDATION_OPTIONS)
 export class GetPriceDto {
     @JoiSchema(Joi.string().required())
-    tokenId!: string;
+    id!: string;
 }
 
 export class GetPriceRequestParamsDto {
     @JoiSchema(Joi.string())
-    tokenId!: string;
+    id!: string;
 }

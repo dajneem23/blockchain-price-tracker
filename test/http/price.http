@@ -1,0 +1,4 @@
+@host = http://localhost:4000/chains/price
+
+
+GET {{host}}/?chain=eth&currency=usd

@@ -1,6 +1,4 @@
-import { UserCreatedHandler } from "./token-price-created.handler";
+import { TokenPriceUpdatedEvent } from '../impl/token-price-updated.event';
+import { TokenPriceCreatedHandler } from './token-price-created.handler';
 
-export const EventHandlers = [
-    UserCreatedHandler
-]
-
+export const EventHandlers = [TokenPriceCreatedHandler, TokenPriceUpdatedEvent];

@@ -1,12 +1,13 @@
 import { plainToClass } from 'class-transformer';
-import { Entity, Column, Index } from 'typeorm';
+import { Entity, Column, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { TokenPriceDto } from '../dtos/token-price.dto';
-import { TokenPriceCreatedEvent } from '../events/impl/token-price-created.handler';
+import { TokenPriceCreatedEvent } from '../events/impl/token-price-created.event';
 import { AbstractEntity } from '@/common/abstract.entity';
+import { TokenPriceUpdatedEvent } from '../events/impl/token-price-updated.event';
 
 @Entity({ name: 'tokenPrices' })
 export class TokenPrice extends AbstractEntity {
-    @Column()
+    @PrimaryGeneratedColumn()
     id!: string;
 
     @Column()
@@ -24,10 +25,10 @@ export class TokenPrice extends AbstractEntity {
     tokenSymbol!: string;
 
     @Column()
-    tokenLogo!: number;
+    tokenLogo!: string;
 
     @Column()
-    tokenDecimals!: number;
+    tokenDecimals!: string;
 
     @Column()
     usdPrice!: number;
@@ -36,7 +37,7 @@ export class TokenPrice extends AbstractEntity {
     usdPriceFormatted!: string;
 
     @Column()
-    hrPercentChange!: number;
+    hrPercentChange!: string;
 
     @Column()
     exchangeAddress!: string;
@@ -62,7 +63,7 @@ export class TokenPrice extends AbstractEntity {
     pairAddress!: string;
 
     @Column()
-    pairTotalLiquidityUsd!: number;
+    pairTotalLiquidityUsd!: string;
 
     toDto() {
         return plainToClass(TokenPriceDto, this);
@@ -73,9 +74,9 @@ export class TokenPrice extends AbstractEntity {
         this.apply(new TokenPriceCreatedEvent(this.toDto()));
     }
 
-    // update() {
-    //     this.apply(new UserUpdatedEvent(this.toDto()));
-    // }
+    update() {
+        this.apply(new TokenPriceUpdatedEvent(this.toDto()));
+    }
 
     // welcome() {
     //     this.apply(new UserWelcomedEvent(this.toDto()));

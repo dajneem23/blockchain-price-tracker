@@ -43,8 +43,8 @@ export class TokenPriceDto extends AbstractDto {
     tokenLogo!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.number().required())
-    tokenDecimals!: number;
+    @JoiSchema(Joi.string().required())
+    tokenDecimals!: string;
 
     @ApiProperty()
     @JoiSchema(Joi.number().required())
@@ -55,8 +55,8 @@ export class TokenPriceDto extends AbstractDto {
     usdPriceFormatted!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.number().required())
-    hrPercentChange!: number;
+    @JoiSchema(Joi.string().required())
+    hrPercentChange!: string;
 
     @ApiProperty()
     @JoiSchema(Joi.string().required())
@@ -79,14 +79,14 @@ export class TokenPriceDto extends AbstractDto {
     possibleSpam!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.boolean().required())
+    @JoiSchema(Joi.boolean().optional())
     verifiedContract!: boolean;
 
     @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @JoiSchema(Joi.string().optional())
     pairAddress!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @JoiSchema(Joi.string().optional())
     pairTotalLiquidityUsd!: string;
 }

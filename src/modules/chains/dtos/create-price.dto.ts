@@ -21,8 +21,8 @@ export class CreatePriceDto {
     tokenLogo!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.number().required())
-    tokenDecimals!: number;
+    @JoiSchema(Joi.string().required())
+    tokenDecimals!: string;
 
     @ApiProperty()
     @JoiSchema(Joi.number().required())
@@ -33,8 +33,8 @@ export class CreatePriceDto {
     usdPriceFormatted!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.number().required())
-    hrPercentChange!: number;
+    @JoiSchema(Joi.string().required())
+    hrPercentChange!: string;
 
     @ApiProperty()
     @JoiSchema(Joi.string().required())
@@ -54,17 +54,17 @@ export class CreatePriceDto {
 
     @ApiProperty()
     @JoiSchema(Joi.boolean().optional())
-    possibleSpam!: boolean;
+    possibleSpam?: boolean;
 
     @ApiProperty()
-    @JoiSchema(Joi.boolean().required())
-    verifiedContract!: boolean;
+    @JoiSchema(Joi.boolean().optional())
+    verifiedContract?: boolean;
 
     @ApiProperty()
-    @JoiSchema(Joi.string().required())
-    pairAddress!: string;
+    @JoiSchema(Joi.string())
+    pairAddress?: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.string().required())
-    pairTotalLiquidityUsd!: string;
+    @JoiSchema(Joi.string())
+    pairTotalLiquidityUsd?: string;
 }
