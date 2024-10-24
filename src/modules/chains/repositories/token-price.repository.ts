@@ -8,7 +8,7 @@ import { CreatePriceDto } from '../dtos/create-price.dto';
 @Injectable()
 export class TokenPriceRepository extends Repository<TokenPrice> {
     constructor(private dataSource: DataSource) {
-        super(TokenPrice, dataSource.createEntityManager());
+        super(TokenPrice, dataSource.createEntityManager(), dataSource.createQueryRunner());
     }
 
     async createTokenPrice(createPriceDto: CreatePriceDto) {

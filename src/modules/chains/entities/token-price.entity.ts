@@ -24,13 +24,18 @@ export class TokenPrice extends AbstractEntity {
     @Index()
     tokenSymbol!: string;
 
-    @Column()
+    @Column({
+        nullable: true,
+    })
     tokenLogo!: string;
 
     @Column()
     tokenDecimals!: string;
 
-    @Column()
+    @Column({
+        type: 'decimal',
+        nullable: true,
+    })
     usdPrice!: number;
 
     @Column()
@@ -46,21 +51,23 @@ export class TokenPrice extends AbstractEntity {
     exchangeName!: string;
 
     @Column()
-    toBlock!: string;
+    toBlock?: string;
 
     @Column({
         type: 'boolean',
+        nullable: true,
     })
     possibleSpam!: boolean;
 
     @Column({
+        nullable: true,
         type: 'boolean',
     })
     verifiedContract!: boolean;
 
     @Column()
     @Index()
-    pairAddress!: string;
+    pairAddress?: string;
 
     @Column()
     pairTotalLiquidityUsd!: string;

@@ -9,6 +9,12 @@ import { ChainModule } from '../chain.module';
 import { SharedModule } from '@/shared.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@/shared/services/config.service';
+import { ModelsModule } from '@/models.module';
+import { TokenPriceModel } from '../models/chain.model';
+import { HealthModule } from '@/modules/health/health.module';
+import { eventStoreBusConfig } from '@/providers/event-bus.provider';
+import { ConfigModule } from '@nestjs/config';
+import { EventStoreCqrsModule } from 'nestjs-eventstore';
 
 describe('PriceService', () => {
     let priceService: PriceService;
@@ -17,12 +23,28 @@ describe('PriceService', () => {
     beforeAll(async () => {
         app = await Test.createTestingModule({
             imports: [
-                ChainModule,
+                ConfigModule.forRoot(), // ensure you have a configuration module
                 TypeOrmModule.forRootAsync({
                     imports: [SharedModule],
                     useFactory: (configService: ConfigService) => configService.typeOrmConfig,
                     inject: [ConfigService],
                 }),
+                EventStoreCqrsModule.forRootAsync(
+                    {
+                        useFactory: async (config: ConfigService) => {
+                            return {
+                                connectionSettings: config.eventStoreConfig.connectionSettings,
+                                endpoint: config.eventStoreConfig.tcpEndpoint,
+                            };
+                        },
+                        inject: [ConfigService],
+                    },
+                    eventStoreBusConfig,
+                ),
+                HealthModule,
+                TerminusModule,
+                ModelsModule,
+                ChainModule,
             ],
             controllers: [AppController],
             providers: [AppService],
@@ -71,6 +93,7 @@ describe('PriceService', () => {
             exchangeAddress: price.exchangeAddress!,
             exchangeName: price.exchangeName!,
             toBlock: price.toBlock!,
+            pairAddress: '',
         };
 
         expect(await priceService.createPrice(createPriceDto));

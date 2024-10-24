@@ -14,8 +14,9 @@ export class CreatePriceHandler implements ICommandHandler<CreatePriceCommand> {
     ) {}
 
     async execute(command: CreatePriceCommand) {
-        Logger.log('Async GetPriceHandler...', 'CreatePriceCommand');
+        Logger.log('Async CreatePriceHandler...', 'CreatePriceCommand');
         const { createPriceDto } = command;
+        console.log('CreatePriceCommand ->', createPriceDto);
         const price = this._publisher.mergeObjectContext(await this._model.repository.createTokenPrice(createPriceDto));
         price.commit();
     }

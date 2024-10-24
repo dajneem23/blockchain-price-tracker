@@ -14,6 +14,10 @@ import { ChainModule } from './modules/chains/chain.module';
 import { HealthModule } from './modules/health/health.module';
 import { ConfigModule } from '@nestjs/config';
 import { ModelsModule } from './models.module';
+import { JoiPipeModule } from 'nestjs-joi';
+import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
+import winston from 'winston';
+import { AppConfig } from './app.config';
 
 @Module({
     imports: [
@@ -35,6 +39,46 @@ import { ModelsModule } from './models.module';
             },
             eventStoreBusConfig,
         ),
+        WinstonModule.forRoot({
+            transports: [
+                new winston.transports.Console({
+                    format: winston.format.combine(
+                        winston.format.timestamp(),
+                        winston.format.ms(),
+                        nestWinstonModuleUtilities.format.nestLike(AppConfig.APP_NAME, {
+                            prettyPrint: true,
+                        }),
+                    ),
+                }),
+
+                new winston.transports.File({
+                    filename: './logs/app_error.log',
+                    level: 'error',
+                    format: winston.format.combine(
+                        winston.format.timestamp(),
+                        winston.format.ms(),
+                        nestWinstonModuleUtilities.format.nestLike(AppConfig.APP_NAME, {
+                            prettyPrint: true,
+                        }),
+                    ),
+                }),
+
+                new winston.transports.File({
+                    filename: './logs/app_combined.log',
+                    format: winston.format.combine(
+                        winston.format.timestamp(),
+                        winston.format.ms(),
+                        nestWinstonModuleUtilities.format.nestLike(AppConfig.APP_NAME, {
+                            prettyPrint: true,
+                        }),
+                    ),
+                }),
+
+                // other transports...
+            ],
+            // other options
+        }),
+        JoiPipeModule.forRoot(),
         HealthModule,
         TerminusModule,
         ModelsModule,

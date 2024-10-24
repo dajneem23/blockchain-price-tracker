@@ -39,7 +39,7 @@ export class TokenPriceDto extends AbstractDto {
     tokenSymbol!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.string().allow(null).optional())
+    @JoiSchema(Joi.string().allow(null).optional().default(''))
     tokenLogo!: string;
 
     @ApiProperty()
@@ -71,7 +71,7 @@ export class TokenPriceDto extends AbstractDto {
     tokenAddress!: string;
 
     @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @JoiSchema(Joi.string().optional().default(''))
     toBlock!: string;
 
     @ApiProperty()

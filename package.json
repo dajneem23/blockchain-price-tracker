@@ -72,6 +72,7 @@
         "moralis": "^2.27.2",
         "morgan": "^1.10",
         "mysql2": "^3.5.2",
+        "nest-winston": "^1.9.7",
         "nestjs-eventstore": "git+https://github.com/0xb4lamx/nestjs-eventstore.git",
         "nestjs-joi": "^1.10.1",
         "redis": "^4.7.0",
