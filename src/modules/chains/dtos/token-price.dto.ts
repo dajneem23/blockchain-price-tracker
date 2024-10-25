@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 import { AbstractDto } from '../../../common/dto/abstract.dto';
 import { JOI_DEFAULT_VALIDATION_OPTIONS } from '@/common/validations';
@@ -27,66 +27,67 @@ import Joi from 'joi';
 
 @JoiSchemaOptions(JOI_DEFAULT_VALIDATION_OPTIONS)
 export class TokenPriceDto extends AbstractDto {
-    @ApiProperty()
-    readonly id!: string;
-
-    @ApiProperty()
+    @ApiProperty({ type: 'string' })
     @JoiSchema(Joi.string().required())
+    id!: string;
+
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     tokenName!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     tokenSymbol!: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional({ type: 'string' })
     @JoiSchema(Joi.string().allow(null).optional().default(''))
-    tokenLogo!: string;
+    tokenLogo?: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     tokenDecimals!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.number().required())
+    @ApiProperty({ type: 'number' })
+    @JoiSchema(Joi.number())
     usdPrice!: number;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     usdPriceFormatted!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     hrPercentChange!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     exchangeAddress!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     exchangeName!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().required())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     tokenAddress!: string;
 
-    @ApiProperty()
+    @ApiPropertyOptional({ type: 'string' })
     @JoiSchema(Joi.string().optional().default(''))
     toBlock!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.boolean().optional())
-    possibleSpam!: string;
+    @ApiPropertyOptional({ type: 'string' })
+    @JoiSchema(Joi.boolean().optional().default(false))
+    possibleSpam?: boolean;
 
-    @ApiProperty()
-    @JoiSchema(Joi.boolean().optional())
-    verifiedContract!: boolean;
+    @ApiPropertyOptional({ type: 'string' })
+    @JoiSchema(Joi.boolean().optional().default(false))
+    verifiedContract?: boolean;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().optional())
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string())
     pairAddress!: string;
 
-    @ApiProperty()
-    @JoiSchema(Joi.string().optional())
-    pairTotalLiquidityUsd!: string;
+    @ApiProperty({ type: 'string' })
+    @JoiSchema(Joi.string().default(''))
+    pairTotalLiquidityUsd?: string;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository, Entity, EntityRepository, DataSource } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -20,21 +20,23 @@ export class TokenPriceRepository extends Repository<TokenPrice> {
 
     async updateTokenPrice(dto) {
         await super.update({ id: dto.id }, dto);
-        const updatedUser = await super.findOne({ where: { id: dto.id } });
-        if (!updatedUser) {
-            throw new Error('TokenPrice not found');
+        const updatedPrice = await super.findOne({ where: { id: dto.id } });
+        if (!updatedPrice) {
+            throw new NotFoundException();
         }
-        updatedUser.update();
-        return updatedUser;
+        updatedPrice.update();
+        return updatedPrice;
     }
 
-    // async deleteUser(userDto) {
-    //     // Todo
-    //     const user = await super.findOne({ where: { id: userDto.id } });
-    //     await super.delete({ id: userDto.id });
-    //     user.delete();
-    //     return user;
-    // }
+    async deleteTokenPrice(dto) {
+        const price = await super.findOne({ where: { id: dto.id } });
+        if (!price) {
+            throw new NotFoundException();
+        }
+        await super.delete({ id: dto.id });
+        price.delete();
+        return price;
+    }
 
     // async welcomeUser(userDto) {
     //     // Todo

@@ -4,6 +4,7 @@ import { TokenPriceDto } from '../dtos/token-price.dto';
 import { TokenPriceCreatedEvent } from '../events/impl/token-price-created.event';
 import { AbstractEntity } from '@/common/abstract.entity';
 import { TokenPriceUpdatedEvent } from '../events/impl/token-price-updated.event';
+import { TokenPriceDeletedEvent } from '../events/impl/token-price-deleted.event';
 
 @Entity({ name: 'tokenPrices' })
 export class TokenPrice extends AbstractEntity {
@@ -89,7 +90,7 @@ export class TokenPrice extends AbstractEntity {
     //     this.apply(new UserWelcomedEvent(this.toDto()));
     // }
 
-    // delete() {
-    //     this.apply(new UserDeletedEvent(this.toDto()));
-    // }
+    delete() {
+        this.apply(new TokenPriceDeletedEvent(this.toDto()));
+    }
 }

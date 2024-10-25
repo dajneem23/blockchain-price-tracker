@@ -8,6 +8,8 @@ import { CreatePriceCommand } from '../commands/impl/create-price-command';
 import { CreatePriceDto } from '../dtos/create-price.dto';
 import { UpdatePriceDto } from '../dtos/update-price.dto';
 import { UpdatePriceCommand } from '../commands/impl/update-price-command';
+import { DeletePriceDto } from '../dtos/delete-price.dto';
+import { DeletePriceCommand } from '../commands/impl/delete-price-command';
 
 @Injectable()
 export class PriceService {
@@ -26,5 +28,9 @@ export class PriceService {
 
     async updatePrice(price: UpdatePriceDto) {
         return this._commandBus.execute(new UpdatePriceCommand(price));
+    }
+
+    async deletePrice(price: DeletePriceDto) {
+        return this._commandBus.execute(new DeletePriceCommand(price));
     }
 }

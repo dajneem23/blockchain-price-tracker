@@ -42,7 +42,7 @@ async function bootstrap() {
     app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
     app.useGlobalPipes(
         new ValidationPipe({
-            whitelist: true,
+            whitelist: process.env.NODE_ENV === 'production',
             transform: true,
             // exceptionFactory: errors => new BadRequestException(errors),
             // dismissDefaultMessages: true,//TODO: disable in prod (if required)

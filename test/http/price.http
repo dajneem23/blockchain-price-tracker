@@ -55,3 +55,17 @@ Content-Type: application/json
     "pairAddress": "0x819f3450da6f110ba6ea52195b3beafa246062de",
     "pairTotalLiquidityUsd": "535093.06"
 }
+
+### Put
+
+PATCH {{host}}/1
+Content-Type: application/json
+
+{
+    "tokenName": "Matic Token updated1",
+    "toBlock": "1"
+}
+
+### Delete
+
+DELETE {{host}}/1
