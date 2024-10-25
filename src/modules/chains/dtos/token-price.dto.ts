@@ -1,6 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 import { AbstractDto } from '../../../common/dto/abstract.dto';
 import { JOI_DEFAULT_VALIDATION_OPTIONS } from '@/common/validations';
@@ -27,9 +26,6 @@ import Joi from 'joi';
 
 @JoiSchemaOptions(JOI_DEFAULT_VALIDATION_OPTIONS)
 export class TokenPriceDto extends AbstractDto {
-    @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.string().required())
-    id!: string;
 
     @ApiProperty({ type: 'string' })
     @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())

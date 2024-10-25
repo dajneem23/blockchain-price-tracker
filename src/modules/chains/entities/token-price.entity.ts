@@ -8,9 +8,6 @@ import { TokenPriceDeletedEvent } from '../events/impl/token-price-deleted.event
 
 @Entity({ name: 'tokenPrices' })
 export class TokenPrice extends AbstractEntity {
-    @PrimaryGeneratedColumn()
-    id!: string;
-
     @Column()
     @Index()
     tokenName!: string;

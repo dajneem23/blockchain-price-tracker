@@ -18,6 +18,7 @@ import { JoiPipeModule } from 'nestjs-joi';
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
 import winston from 'winston';
 import { AppConfig } from './app.config';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
     imports: [
@@ -93,6 +94,7 @@ import { AppConfig } from './app.config';
         TerminusModule,
         ModelsModule,
         ChainModule,
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService],

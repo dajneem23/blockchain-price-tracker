@@ -38,7 +38,6 @@ POST {{host}}
 Content-Type: application/json
 
 {
-    "id": "1",
     "tokenName": "Matic Token",
     "tokenSymbol": "MATIC",
     "tokenLogo": "https://logo.moralis.io/0x1_0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0_dc278c392d29136df666c3cda1cc1987",
