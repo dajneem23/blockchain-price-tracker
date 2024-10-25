@@ -11,6 +11,8 @@ import { ConfigService } from './shared/services/config.service';
 import { LoggerService } from './shared/services/logger.service';
 import { setupSwagger } from './shared/swagger/setup';
 import { SharedModule } from './shared.module';
+import { JoiExceptionFilter } from './filters/joi-exception.filter';
+import { CustomReturnFieldsInterceptor } from './middlewares/custom-return-fields.interceptor';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(), { cors: true });
@@ -37,20 +39,29 @@ async function bootstrap() {
     );
 
     const reflector = app.get(Reflector);
+    app.useGlobalFilters(new JoiExceptionFilter());
 
     app.useGlobalFilters(new HttpExceptionFilter(loggerService));
     app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
-    app.useGlobalPipes(
-        new ValidationPipe({
-            whitelist: process.env.NODE_ENV === 'production',
-            transform: true,
-            // exceptionFactory: errors => new BadRequestException(errors),
-            // dismissDefaultMessages: true,//TODO: disable in prod (if required)
-            validationError: {
-                target: false,
-            },
-        }),
-    );
+    app.useGlobalInterceptors(new CustomReturnFieldsInterceptor());
+
+    // app.useGlobalPipes(
+    //     new ValidationPipe({
+    //         transform: true, // Automatically transform payloads to match DTO types
+    //         whitelist: true, // Strip properties not defined in the DTO
+    //         forbidNonWhitelisted: true, // Throw an error if non-defined properties are present
+    //         validationError: { target: false }, // Hide details of the DTO itself in the error
+    //         // exceptionFactory: (errors) => {
+    //         //     // Customize error messages
+    //         //     return new Error(
+    //         //         errors.map((err) => ({
+    //         //             field: err.property,
+    //         //             errors: Object.values(err.constraints),
+    //         //         })),
+    //         //     );
+    //         // },
+    //     }),
+    // );
 
     const configService = app.select(SharedModule).get(ConfigService);
 

@@ -5,11 +5,10 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetPriceDto } from '../dtos/get-price.dto';
 import { GetPriceQuery } from '../queries/impl/get-price.query';
 import { CreatePriceCommand } from '../commands/impl/create-price-command';
-import { CreatePriceDto } from '../dtos/create-price.dto';
-import { UpdatePriceDto } from '../dtos/update-price.dto';
 import { UpdatePriceCommand } from '../commands/impl/update-price-command';
-import { DeletePriceDto } from '../dtos/delete-price.dto';
 import { DeletePriceCommand } from '../commands/impl/delete-price-command';
+import { TokenPriceDto } from '../dtos/token-price.dto';
+import { IdRequestParamsDto } from '../dtos/id-prams.dto';
 
 @Injectable()
 export class PriceService {
@@ -22,15 +21,15 @@ export class PriceService {
         return this._queryBus.execute(new GetPriceQuery(price));
     }
 
-    async createPrice(price: CreatePriceDto) {
+    async createPrice(price: TokenPriceDto) {
         return this._commandBus.execute(new CreatePriceCommand(price));
     }
 
-    async updatePrice(price: UpdatePriceDto) {
+    async updatePrice(price: TokenPriceDto) {
         return this._commandBus.execute(new UpdatePriceCommand(price));
     }
 
-    async deletePrice(price: DeletePriceDto) {
+    async deletePrice(price: IdRequestParamsDto) {
         return this._commandBus.execute(new DeletePriceCommand(price));
     }
 }

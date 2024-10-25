@@ -1,6 +1,6 @@
 import { ICommand } from '@nestjs/cqrs';
-import { DeletePriceDto } from '../../dtos/delete-price.dto';
+import { IdRequestParamsDto } from '../../dtos/id-prams.dto';
 
 export class DeletePriceCommand implements ICommand {
-    constructor(public readonly deletePriceDto: DeletePriceDto) {}
+    constructor(public readonly deletePriceDto: IdRequestParamsDto) {}
 }

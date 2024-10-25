@@ -78,7 +78,17 @@ import { AppConfig } from './app.config';
             ],
             // other options
         }),
-        JoiPipeModule.forRoot(),
+        JoiPipeModule.forRoot({
+            pipeOpts: {
+                usePipeValidationException: true,
+                defaultValidationOptions: {
+                    abortEarly: false,
+                    allowUnknown: true,
+                    stripUnknown: true,
+                    debug: true,
+                },
+            },
+        }),
         HealthModule,
         TerminusModule,
         ModelsModule,

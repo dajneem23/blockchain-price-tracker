@@ -62,7 +62,7 @@ PATCH {{host}}/1
 Content-Type: application/json
 
 {
-    "tokenName": "Matic Token updated1",
+    "tokenName": "Matic Token updated",
     "toBlock": "1"
 }
 

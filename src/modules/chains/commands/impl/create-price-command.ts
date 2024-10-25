@@ -1,6 +1,6 @@
 import { ICommand } from '@nestjs/cqrs';
-import { CreatePriceDto } from '../../dtos/create-price.dto';
+import { TokenPriceDto } from '../../dtos/token-price.dto';
 
 export class CreatePriceCommand implements ICommand {
-    constructor(public readonly createPriceDto: CreatePriceDto) {}
+    constructor(public readonly createPriceDto: TokenPriceDto) {}
 }

@@ -3,7 +3,7 @@ import { Repository, Entity, EntityRepository, DataSource } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
 import { TokenPrice } from '../entities/token-price.entity';
-import { CreatePriceDto } from '../dtos/create-price.dto';
+import { TokenPriceDto } from '../dtos/token-price.dto';
 
 @Injectable()
 export class TokenPriceRepository extends Repository<TokenPrice> {
@@ -11,7 +11,7 @@ export class TokenPriceRepository extends Repository<TokenPrice> {
         super(TokenPrice, dataSource.createEntityManager(), dataSource.createQueryRunner());
     }
 
-    async createTokenPrice(createPriceDto: CreatePriceDto) {
+    async createTokenPrice(createPriceDto: TokenPriceDto) {
         const id = uuidv4();
         const tokenPrice = await this.save(super.create({ ...{ id }, ...createPriceDto }));
         tokenPrice.create();
