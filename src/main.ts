@@ -13,6 +13,8 @@ import { setupSwagger } from './shared/swagger/setup';
 import { SharedModule } from './shared.module';
 import { JoiExceptionFilter } from './filters/joi-exception.filter';
 import { CustomReturnFieldsInterceptor } from './middlewares/custom-return-fields.interceptor';
+import { JoiPipe } from 'nestjs-joi';
+import { SqlErrorInterceptor } from './filters/sql-error.interceptor';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(), { cors: true });
@@ -39,29 +41,34 @@ async function bootstrap() {
     );
 
     const reflector = app.get(Reflector);
-    app.useGlobalFilters(new JoiExceptionFilter());
 
-    app.useGlobalFilters(new HttpExceptionFilter(loggerService));
-    app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
-    app.useGlobalInterceptors(new CustomReturnFieldsInterceptor());
+    app.useGlobalFilters(new JoiExceptionFilter(), new HttpExceptionFilter(loggerService));
 
-    // app.useGlobalPipes(
-    //     new ValidationPipe({
-    //         transform: true, // Automatically transform payloads to match DTO types
-    //         whitelist: true, // Strip properties not defined in the DTO
-    //         forbidNonWhitelisted: true, // Throw an error if non-defined properties are present
-    //         validationError: { target: false }, // Hide details of the DTO itself in the error
-    //         // exceptionFactory: (errors) => {
-    //         //     // Customize error messages
-    //         //     return new Error(
-    //         //         errors.map((err) => ({
-    //         //             field: err.property,
-    //         //             errors: Object.values(err.constraints),
-    //         //         })),
-    //         //     );
-    //         // },
-    //     }),
-    // );
+    app.useGlobalInterceptors(
+        ...(process.env.NODE_ENV == 'development' ? [new SqlErrorInterceptor()] : []),
+        new ClassSerializerInterceptor(reflector),
+        new CustomReturnFieldsInterceptor(),
+    );
+
+    app.useGlobalPipes(
+        //class-transformer and class-validator are included in ValidationPipe
+        // new ValidationPipe({
+        //     transform: true, // Automatically transform payloads to match DTO types
+        //     whitelist: true, // Strip properties not defined in the DTO
+        //     forbidNonWhitelisted: true, // Throw an error if non-defined properties are present
+        //     validationError: { target: false }, // Hide details of the DTO itself in the error
+        //     // exceptionFactory: (errors) => {
+        //     //     // Customize error messages
+        //     //     return new Error(
+        //     //         errors.map((err) => ({
+        //     //             field: err.property,
+        //     //             errors: Object.values(err.constraints),
+        //     //         })),
+        //     //     );
+        //     // },
+        // }),
+        new JoiPipe(),
+    );
 
     const configService = app.select(SharedModule).get(ConfigService);
 

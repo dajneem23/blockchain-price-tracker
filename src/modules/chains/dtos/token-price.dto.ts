@@ -3,7 +3,7 @@ import { Exclude, Expose } from 'class-transformer';
 
 import { AbstractDto } from '../../../common/dto/abstract.dto';
 import { JOI_DEFAULT_VALIDATION_OPTIONS } from '@/common/validations';
-import { JoiSchema, JoiSchemaOptions, JoiValidationGroups } from 'nestjs-joi';
+import { CREATE, JoiSchema, JoiSchemaOptions, JoiValidationGroups, UPDATE } from 'nestjs-joi';
 import Joi from 'joi';
 
 // {
@@ -26,9 +26,9 @@ import Joi from 'joi';
 
 @JoiSchemaOptions(JOI_DEFAULT_VALIDATION_OPTIONS)
 export class TokenPriceDto extends AbstractDto {
-
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE], Joi.string().required())
+    @JoiSchema([UPDATE], Joi.string())
     tokenName!: string;
 
     @ApiProperty({ type: 'string' })
@@ -36,60 +36,65 @@ export class TokenPriceDto extends AbstractDto {
     tokenSymbol!: string;
 
     @ApiPropertyOptional({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.string().allow(null).optional().default(''))
-    @JoiSchema([JoiValidationGroups.UPDATE], Joi.string().optional())
+    @JoiSchema([CREATE], Joi.string().allow(null).optional().default(''))
+    @JoiSchema([UPDATE], Joi.string().optional())
     tokenLogo?: string;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE, UPDATE], Joi.string())
     tokenDecimals!: string;
 
     @ApiProperty({ type: 'number' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.number())
+    @JoiSchema([CREATE, UPDATE], Joi.number())
     usdPrice!: number;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE, UPDATE], Joi.string())
     usdPriceFormatted!: string;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE, UPDATE], Joi.string())
     hrPercentChange!: string;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE, UPDATE], Joi.string())
     exchangeAddress!: string;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE, UPDATE], Joi.string())
     exchangeName!: string;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE, JoiValidationGroups.UPDATE], Joi.string())
+    @JoiSchema([CREATE, UPDATE], Joi.string().regex(/^0x[a-fA-F0-9]{40}$/))
     tokenAddress!: string;
 
     @ApiPropertyOptional({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.string().optional().default(''))
-    @JoiSchema([JoiValidationGroups.UPDATE], Joi.string().optional())
+    @JoiSchema([CREATE], Joi.string().optional().default(''))
+    @JoiSchema([UPDATE], Joi.string().optional())
     toBlock!: string;
 
     @ApiPropertyOptional({ type: 'boolean' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.boolean().optional().default(false))
-    @JoiSchema([JoiValidationGroups.UPDATE], Joi.boolean().optional())
+    @JoiSchema([CREATE], Joi.boolean().optional().default(false))
+    @JoiSchema([UPDATE], Joi.boolean().optional())
     possibleSpam?: boolean;
 
     @ApiPropertyOptional({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.boolean().optional().default(false))
-    @JoiSchema([JoiValidationGroups.UPDATE], Joi.boolean().optional())
+    @JoiSchema([CREATE], Joi.boolean().optional().default(false))
+    @JoiSchema([UPDATE], Joi.boolean().optional())
     verifiedContract?: boolean;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.string())
-    @JoiSchema([JoiValidationGroups.UPDATE], Joi.string().optional())
+    @JoiSchema([CREATE], Joi.string().regex(/^0x[a-fA-F0-9]{40}$/))
+    @JoiSchema(
+        [UPDATE],
+        Joi.string()
+            .regex(/^0x[a-fA-F0-9]{40}$/)
+            .optional(),
+    )
     pairAddress!: string;
 
     @ApiProperty({ type: 'string' })
-    @JoiSchema([JoiValidationGroups.CREATE], Joi.string().default(''))
-    @JoiSchema([JoiValidationGroups.UPDATE], Joi.string().optional())
+    @JoiSchema([CREATE], Joi.string().default(''))
+    @JoiSchema([UPDATE], Joi.string().optional())
     pairTotalLiquidityUsd?: string;
 }

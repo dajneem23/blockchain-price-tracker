@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 
-import { AbstractDto } from '../../../common/dto/abstract.dto';
+import { AbstractDto } from '@/common/dto/abstract.dto';
 import Joi from 'joi';
-import { JoiSchema, JoiSchemaOptions, JoiValidationGroups } from 'nestjs-joi';
+import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 import { JOI_DEFAULT_VALIDATION_OPTIONS } from '@/common/validations';
 
 @Exclude()

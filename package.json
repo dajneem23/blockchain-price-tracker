@@ -6,8 +6,8 @@
     "author": "dajneem23 <dajneem23@gmail.com>",
     "license": "MIT",
     "engines": {
-        "node": ">=16.0.0",
-        "npm": ">=6.0.0"
+        "node": ">=22.0.0",
+        "npm": ">=8.0.0"
     },
     "scripts": {
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -115,10 +115,6 @@
         "tsconfig-paths": "^4.2.0",
         "typescript": "^5.6.3"
     },
-    "moduleDirectories": [
-        "node_modules",
-        "src"
-    ],
     "lint-staged": {
         "*.@(ts)": [
             "eslint --fix"
